@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TradeInsert Application Configurations goes here-->
+<Configuration>
+
+<dbConnection name="DEV_CS24_GR_trade">
+	<databaseDriverClassName>net.sourceforge.jtds.jdbc.Driver</databaseDriverClassName>
+	<databaseConnectionURL>jdbc:jtds:sqlserver://HYDDB05:1460/DEV_CS24_GR_trade</databaseConnectionURL>
+	<databaseUserName>ictspass</databaseUserName>
+	<databasePassword>ictspass</databasePassword>
+</dbConnection>
+
+<!-- 
+default LookAndFeel name should be mentioned. valid values are {Metal, Nimbus, CDE/Motif, Windows, Windows Classic}. i f not mentioned or if the mentioned LookAndFeel is 
+not available then default is "Windows"
+-->
+<LoadCustomLookAndFeel>YES</LoadCustomLookAndFeel>
+<DefaultLookAndFeelName>Windows</DefaultLookAndFeelName>
+
+<!-- LookAndFeelName=LookAndFeelClassName-->
+<WebLookAndFeel>com.alee.laf.WebLookAndFeel</WebLookAndFeel>
+<SeaGlass>com.seaglasslookandfeel.SeaGlassLookAndFeel</SeaGlass>
+
+</Configuration>
