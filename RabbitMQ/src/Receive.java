@@ -1,4 +1,6 @@
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -13,7 +15,8 @@ public class Receive {
   private final static String QUEUE_NAME = "hello";
 
   public static void main(String[] argv) throws Exception {
-    ConnectionFactory factory = new ConnectionFactory();
+    //User s = new User();
+	  ConnectionFactory factory = new ConnectionFactory();
     factory.setHost("localhost");
     Connection connection = factory.newConnection();
     Channel channel = connection.createChannel();
@@ -25,10 +28,30 @@ public class Receive {
       @Override
       public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
           throws IOException {
-        String message = new String(body, "UTF-8");
-        System.out.println(" [x] Received '" + message + "'");
+        //String message = new String(body, "UTF-8");
+        //System.out.println(" [x] Received '" + message + "'");
+    	  ByteArrayInputStream b = new ByteArrayInputStream(body);
+    	  ObjectInputStream i = new ObjectInputStream(b);
+    	  try {
+			User s = (User)i.readObject();
+			System.out.println(s.getFirstName());
+			System.out.println(s.getLastName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
       }
     };
     channel.basicConsume(QUEUE_NAME, true, consumer);
+    
+    /*Consumer consumer = new DefaultConsumer(channel);
+    channel.basicConsume(QUEUE_NAME, true, consumer);
+    
+    while(true)
+    {
+    	//consumer.handleDelivery(arg0, arg1, arg2, arg3);
+    }*/
+    
+    
   }
 }
