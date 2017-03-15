@@ -2,12 +2,19 @@ package org.apache.poi.hssf.usermodel.examples;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -34,7 +41,7 @@ public final class XSSFReadWrite {
 	 * given a filename this outputs a sample sheet with just a set of
 	 * rows/cells.
 	 */
-	/*private static void testCreateSampleSheet(String outputFilename) throws IOException
+	private static void testCreateSampleSheet(String outputFilename) throws IOException
 	{
 		int rownum;
 		XSSFWorkbook wb = new XSSFWorkbook();
@@ -58,7 +65,7 @@ public final class XSSFReadWrite {
 		cs2.setFillForegroundColor((short) 0xA);
 		cs2.setFont(f2);
 		wb.setSheetName(0, "XSSF Test");
-		for (rownum = 0; rownum < 300; rownum++) {
+		for (rownum = 0; rownum < 10; rownum++) {
 			XSSFRow r = s.createRow(rownum);
 			if ((rownum % 2) == 0) {
 				r.setHeight((short) 0x249);
@@ -84,26 +91,26 @@ public final class XSSFReadWrite {
 		// draw a thick black border on the row at the bottom using BLANKS
 		rownum++;
 		rownum++;
-		XSSFRow r = s.createRow(rownum);
+		/*XSSFRow r = s.createRow(rownum);
 		cs3.setBorderBottom(XSSFCellStyle.BORDER_THICK);
 		for (int cellnum = 0; cellnum < 50; cellnum++) {
 			XSSFCell c = r.createCell(cellnum);
 			c.setCellStyle(cs3);
-		}
+		}*/
 		s.addMergedRegion(new CellRangeAddress(0, 3, 0, 3));
 		s.addMergedRegion(new CellRangeAddress(100, 110, 100, 110));
 
 		// end draw thick black border
 		// create a sheet, set its title then delete it
-		s = wb.createSheet();
-		wb.setSheetName(1, "DeletedSheet");
-		wb.removeSheetAt(1);
+		//s = wb.createSheet();
+		//wb.setSheetName(1, "DeletedSheet");
+		//wb.removeSheetAt(1);
 
 		// end deleted sheet
 		FileOutputStream out = new FileOutputStream(outputFilename);
 		wb.write(out);
 		out.close();
-	}*/
+	}
 
 	/**
      * Method main
@@ -124,10 +131,13 @@ public final class XSSFReadWrite {
      * spreadsheet, deletes rows 0-24, 74-99.  Changes cell at row 39, col 3 to
      * "MODIFIED CELL" then writes it out.  Hence this is "modify test 1".  If you
      * take the output from the write test, you'll have a valid scenario.
+	 * @throws IOException 
      */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
-		File fileName = new File("d:\\book1.xlsx");
+		File fileName = new File("e:\\book1.xlsx");
+		testCreateSampleSheet("e:\\test.xlsx");
+		System.exit(0);
 		try {
 			if (args.length < 2) {
 
